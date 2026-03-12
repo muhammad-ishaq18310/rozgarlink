@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:rozgarlink/data/labor_data.dart';
+import '../models/labor_model.dart';
 
 class laborregisterscreen extends StatefulWidget {
   const laborregisterscreen({super.key});
@@ -106,6 +108,12 @@ class _laborregisterscreenState extends State<laborregisterscreen> {
                       selectedSkill = value;
                     });
                   },
+                  validator: (value) {
+                    if (value == null) {
+                      return "please slect skill";
+                    }
+                    return null;
+                  },
                 ),
                 SizedBox(height: 20),
 
@@ -139,9 +147,29 @@ class _laborregisterscreenState extends State<laborregisterscreen> {
                 ElevatedButton(
                   onPressed: () {
                     if (_formkey.currentState!.validate()) {
-                      print(nameController.text);
-                      print(phoneController.text);
-                      print(selectedSkill);
+                      LaborModel newLabor = LaborModel(
+                        name: nameController.text,
+                        phone: phoneController.text,
+                        skill: selectedSkill!,
+                        city: cityController.text,
+                        wage: wageController.text,
+                      );
+
+                      laborList.add(newLabor); // <-- Save labor to the list
+
+                      ScaffoldMessenger.of(context).showSnackBar(
+                        SnackBar(
+                          content: Text("Labor Registered Successfully"),
+                        ),
+                      );
+
+                      // Clear the form
+                      nameController.clear();
+                      phoneController.clear();
+                      selectedSkill = null;
+                      cityController.clear();
+                      wageController.clear();
+                      setState(() {});
                     }
                   },
 

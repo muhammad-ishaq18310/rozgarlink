@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:rozgarlink/features/auth/login%20screen.dart';
+import 'package:rozgarlink/features/client/client_homescreen.dart';
 
 class RoleSelectionViewmodel {
   void selectLabor(BuildContext context) {
@@ -12,9 +13,7 @@ class RoleSelectionViewmodel {
   void selectClient(BuildContext context) {
     Navigator.push(
       context,
-      MaterialPageRoute(
-        builder: (context) => const LoginScreen(role: "client"),
-      ),
+      MaterialPageRoute(builder: (context) => const ClientHomeScreen()),
     );
   }
 }
