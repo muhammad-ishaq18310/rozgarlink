@@ -1,10 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:rozgarlink/features/auth/role_slection_screen.dart';
-import 'package:rozgarlink/features/client/client_login_screen.dart';
-import 'package:rozgarlink/features/labour/labor_screen.dart';
 import 'features/splash/splash_view.dart';
+import 'package:firebase_core/firebase_core.dart';
 
-void main() {
+void main() async {
+  WidgetsFlutterBinding.ensureInitialized();
+
+  await Firebase.initializeApp();
+
   runApp(const RozgarLinkApp());
 }
 
@@ -24,8 +27,6 @@ class RozgarLinkApp extends StatelessWidget {
       routes: {
         '/': (context) => const SplashView(),
         '/roleSelection': (context) => RoleSlectionScreen(),
-        '/laborlogin': (context) => LaborScreen(),
-        '/clientlogin': (context) => ClientScreen(),
       },
     );
   }
