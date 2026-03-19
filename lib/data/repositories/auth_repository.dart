@@ -11,9 +11,10 @@ class AuthRepository {
     required String password,
     required String name,
     required String phone,
-    required String skill,
+    required List<String> skills,
     required String city,
     required String wage,
+    String profileImage = '',
   }) async {
     try {
       UserCredential result = await _auth.createUserWithEmailAndPassword(
@@ -22,12 +23,16 @@ class AuthRepository {
       );
 
       await _firestore.collection('labors').doc(result.user!.uid).set({
+        'id': result.user!.uid,
         'name': name,
         'phone': phone,
-        'skill': skill,
+        'skills': skills,
         'city': city,
         'wage': wage,
         'email': email,
+        'profileImage': profileImage,
+        'isAvailable': true, // ← Add this
+        'rating': 0.0,
         'role': 'labor',
         'createdAt': DateTime.now().toString(),
       });
@@ -71,5 +76,9 @@ class AuthRepository {
     } catch (e) {
       return null;
     }
+  }
+
+  User? getCurrentUser() {
+    return _auth.currentUser;
   }
 }
